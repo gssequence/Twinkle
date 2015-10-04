@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddModal" xml:space="preserve">
+    <value>_Add...</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ButtonDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ButtonNewTweet" xml:space="preserve">
+    <value>New Tweet</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ButtonOpenInBrowser" xml:space="preserve">
+    <value>Open In Web Browser</value>
+  </data>
+  <data name="ButtonRotateClockwise" xml:space="preserve">
+    <value>Rotate Clockwise</value>
+  </data>
+  <data name="ButtonRotateCounterClockwise" xml:space="preserve">
+    <value>Rotate Counterclockwise</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ButtonTemplates" xml:space="preserve">
+    <value>Templates</value>
+  </data>
+  <data name="ButtonTweet" xml:space="preserve">
+    <value>Tweet</value>
+  </data>
+  <data name="FileDialogFilterImage" xml:space="preserve">
+    <value>All Files (*.*)|*.*</value>
+  </data>
+  <data name="FileDialogFilterTweet" xml:space="preserve">
+    <value>Text Document (*.txt)|*.txt|All Files (*.*)|*.*</value>
+  </data>
+  <data name="FilterAllFiles" xml:space="preserve">
+    <value>All Files</value>
+  </data>
+  <data name="Format" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="LabelFilterScript" xml:space="preserve">
+    <value>Filter Script:</value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="LoginConfirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="LoginConsumerKey" xml:space="preserve">
+    <value>Consumer Key:</value>
+  </data>
+  <data name="LoginConsumerSecret" xml:space="preserve">
+    <value>Consumer Secret:</value>
+  </data>
+  <data name="LoginPinCode" xml:space="preserve">
+    <value>PIN Code:</value>
+  </data>
+  <data name="LoginStartAuthentication" xml:space="preserve">
+    <value>Start Authentication</value>
+  </data>
+  <data name="LoginStep1" xml:space="preserve">
+    <value>Step 1: Authentication</value>
+  </data>
+  <data name="LoginStep2" xml:space="preserve">
+    <value>Step 2: Enter a PIN Code</value>
+  </data>
+  <data name="LoginUseCustomKey" xml:space="preserve">
+    <value>Use custom Consumer Key / Consumer Secret</value>
+  </data>
+  <data name="MenuAbout" xml:space="preserve">
+    <value>_About Twinkle for Windows...</value>
+  </data>
+  <data name="MenuAccounts" xml:space="preserve">
+    <value>_Accounts</value>
+  </data>
+  <data name="MenuAdd" xml:space="preserve">
+    <value>_Add</value>
+  </data>
+  <data name="MenuConnectToStream" xml:space="preserve">
+    <value>_Connect To Stream</value>
+  </data>
+  <data name="MenuDisconnectFromStream" xml:space="preserve">
+    <value>_Disconnect From Stream</value>
+  </data>
+  <data name="MenuFile" xml:space="preserve">
+    <value>_File</value>
+  </data>
+  <data name="MenuGetFavorites" xml:space="preserve">
+    <value>Get _Favorites</value>
+  </data>
+  <data name="MenuGetHomeTimeline" xml:space="preserve">
+    <value>Get _Home Timeline</value>
+  </data>
+  <data name="MenuGetMentions" xml:space="preserve">
+    <value>Get _Mentions</value>
+  </data>
+  <data name="MenuGetMyTweets" xml:space="preserve">
+    <value>Get M_y Tweets</value>
+  </data>
+  <data name="MenuHelp" xml:space="preserve">
+    <value>_Help</value>
+  </data>
+  <data name="MenuImageClipboard" xml:space="preserve">
+    <value>_Clipboard</value>
+  </data>
+  <data name="MenuImageFile" xml:space="preserve">
+    <value>_File...</value>
+  </data>
+  <data name="MenuImageLaunchSnippingTool" xml:space="preserve">
+    <value>Launch _Snipping Tool...</value>
+  </data>
+  <data name="MenuNewTweet" xml:space="preserve">
+    <value>_New Tweet...</value>
+  </data>
+  <data name="MenuNoAccounts" xml:space="preserve">
+    <value>There are no accounts</value>
+  </data>
+  <data name="MenuNotStreaming" xml:space="preserve">
+    <value>Disconnected from stream</value>
+  </data>
+  <data name="MenuOptions" xml:space="preserve">
+    <value>_Options...</value>
+  </data>
+  <data name="MenuQuit" xml:space="preserve">
+    <value>_Quit</value>
+  </data>
+  <data name="MenuStreamingNow" xml:space="preserve">
+    <value>Streaming...</value>
+  </data>
+  <data name="MenuTimelines" xml:space="preserve">
+    <value>_Timelines</value>
+  </data>
+  <data name="MenuTools" xml:space="preserve">
+    <value>T_ools</value>
+  </data>
+  <data name="MessageAccountRegeistered" xml:space="preserve">
+    <value>An account has been registered.</value>
+  </data>
+  <data name="MessageAlreadyRegistered" xml:space="preserve">
+    <value>This account has already been registered.</value>
+  </data>
+  <data name="MessageApplicationStart" xml:space="preserve">
+    <value>Application has started.</value>
+  </data>
+  <data name="MessageCompleteFavoriteReceiving" xml:space="preserve">
+    <value>Completed receiving latest {0} tweets in favorites.</value>
+  </data>
+  <data name="MessageCompleteHomeReceiving" xml:space="preserve">
+    <value>Completed receiving latest {0} tweets in home timeline.</value>
+  </data>
+  <data name="MessageCompleteMentionsReceiving" xml:space="preserve">
+    <value>Completed receiving latest {0} tweets in mentions.</value>
+  </data>
+  <data name="MessageCompleteMyTweetReceiving" xml:space="preserve">
+    <value>Completed receiving latest {0} tweets in my account.</value>
+  </data>
+  <data name="MessageDeletedTweet" xml:space="preserve">
+    <value>@{0} has deleted a tweet.</value>
+  </data>
+  <data name="MessageEnterPinCode" xml:space="preserve">
+    <value>Web browser will open. Authorize the application and then enter a PIN Code.</value>
+  </data>
+  <data name="MessageFavorited" xml:space="preserve">
+    <value>@{0} favorited your tweet.</value>
+  </data>
+  <data name="MessageImageSaved" xml:space="preserve">
+    <value>Image has been saved.</value>
+  </data>
+  <data name="MessageNoAccounts" xml:space="preserve">
+    <value>There are no registered accounts. Click here to view details.</value>
+  </data>
+  <data name="MessageNoAccountsDetail" xml:space="preserve">
+    <value>To register a new account, click [Accounts]-&gt;[Add...].</value>
+  </data>
+  <data name="MessagePressStartAuthentication" xml:space="preserve">
+    <value>Please press "Start Authentication."</value>
+  </data>
+  <data name="MessageSendingTweet" xml:space="preserve">
+    <value>Sending tweet...</value>
+  </data>
+  <data name="MessageSentTweet" xml:space="preserve">
+    <value>Tweet has been sent.</value>
+  </data>
+  <data name="MessageStartAuthentication" xml:space="preserve">
+    <value>Authentication has started...</value>
+  </data>
+  <data name="MessageTweetSaved" xml:space="preserve">
+    <value>Tweet has been saved.</value>
+  </data>
+  <data name="MessageUnfavorited" xml:space="preserve">
+    <value>@{0} unfavorited your tweet.</value>
+  </data>
+  <data name="MessageUploading" xml:space="preserve">
+    <value>Uploading ({0} of {1})...</value>
+  </data>
+  <data name="MessageVerifyingPinCode" xml:space="preserve">
+    <value>Verifying PIN Code...</value>
+  </data>
+  <data name="OptionsAccounts" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="OptionsAccountsConnectToStreamWhenStart" xml:space="preserve">
+    <value>Connect To Stream When Start</value>
+  </data>
+  <data name="OptionsAccountsLoadFavoritesWhenStart" xml:space="preserve">
+    <value>Get Favorites When Start</value>
+  </data>
+  <data name="OptionsAccountsLoadHomeTimelineWhenStart" xml:space="preserve">
+    <value>Get Home Timeline When Start</value>
+  </data>
+  <data name="OptionsAccountsLoadMentionsWhenStart" xml:space="preserve">
+    <value>Get Mentions When Start</value>
+  </data>
+  <data name="OptionsAccountsLoadMyTweetsWhenStart" xml:space="preserve">
+    <value>Get My Tweets When Start</value>
+  </data>
+  <data name="OptionsBehavior" xml:space="preserve">
+    <value>Behavior</value>
+  </data>
+  <data name="OptionsBehaviorAutoTweetSave" xml:space="preserve">
+    <value>Save Tweet In Specific Folder Automatically When Deleted</value>
+  </data>
+  <data name="OptionsBehaviorImageSaveFolder" xml:space="preserve">
+    <value>Image Save Folder:</value>
+  </data>
+  <data name="OptionsBehaviorImageSaveFolderAsk" xml:space="preserve">
+    <value>Asks When Save</value>
+  </data>
+  <data name="OptionsBehaviorImageSaveFolderSpecify" xml:space="preserve">
+    <value>Specify Folder</value>
+  </data>
+  <data name="OptionsBehaviorTweetSaveFolder" xml:space="preserve">
+    <value>Tweet Save Folder:</value>
+  </data>
+  <data name="OptionsBehaviorTweetSaveFolderAsk" xml:space="preserve">
+    <value>Asks When Save</value>
+  </data>
+  <data name="OptionsBehaviorTweetSaveFolderSpecify" xml:space="preserve">
+    <value>Specify Folder</value>
+  </data>
+  <data name="OptionsGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="OptionsGeneralLanguage" xml:space="preserve">
+    <value>Language:</value>
+  </data>
+  <data name="OptionsView" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="OptionsViewTextSize" xml:space="preserve">
+    <value>Text Size:</value>
+  </data>
+  <data name="OptionsViewTimelineWidth" xml:space="preserve">
+    <value>Timeline Width:</value>
+  </data>
+  <data name="TimeDay" xml:space="preserve">
+    <value>{0}d</value>
+  </data>
+  <data name="TimeHour" xml:space="preserve">
+    <value>{0}h</value>
+  </data>
+  <data name="TimeMinute" xml:space="preserve">
+    <value>{0}m</value>
+  </data>
+  <data name="TimeNow" xml:space="preserve">
+    <value>Now</value>
+  </data>
+  <data name="TimeSecond" xml:space="preserve">
+    <value>{0}s</value>
+  </data>
+  <data name="TweetMenuOpenInBrowser" xml:space="preserve">
+    <value>_Open In Web Browser</value>
+  </data>
+  <data name="TweetMenuSaveTweet" xml:space="preserve">
+    <value>_Save Tweet</value>
+  </data>
+  <data name="WindowTitleAbout" xml:space="preserve">
+    <value>About Twinkle for Windows</value>
+  </data>
+  <data name="WindowTitleApplicationMessages" xml:space="preserve">
+    <value>Application Messages</value>
+  </data>
+  <data name="WindowTitleLogin" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="WindowTitleNewTweet" xml:space="preserve">
+    <value>New Tweet</value>
+  </data>
+  <data name="WindowTitleOptions" xml:space="preserve">
+    <value>Options</value>
+  </data>
+</root>

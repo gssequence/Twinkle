@@ -1,0 +1,88 @@
+﻿<metro:MetroWindow x:Class="Twinkle.Views.ImageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:m="clr-namespace:Twinkle.Models"
+        xmlns:v="clr-namespace:Twinkle.Views"
+        xmlns:u="clr-namespace:Twinkle.Views.UserControls"
+        xmlns:vm="clr-namespace:Twinkle.ViewModels"
+        Title="{Binding MediaInfoViewModel.FileName}"
+        SizeToContent="WidthAndHeight" UseLayoutRounding="True" ResizeMode="NoResize"
+        ShowInTaskbar="False" WindowStartupLocation="CenterOwner"
+        GlowBrush="{DynamicResource AccentColorBrush}" TitleCaps="False">
+  <metro:MetroWindow.RightWindowCommands>
+    <metro:WindowCommands>
+      <Button ToolTip="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.ButtonRotateCounterClockwise}">
+        <Rectangle Width="16" Height="16" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+          <Rectangle.OpacityMask>
+            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_transform_rotate_counterclockwise}" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+        <i:Interaction.Triggers>
+          <i:EventTrigger EventName="Click">
+            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="RotateCounterClockwise" />
+          </i:EventTrigger>
+        </i:Interaction.Triggers>
+      </Button>
+      <Button ToolTip="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.ButtonRotateClockwise}">
+        <Rectangle Width="16" Height="16" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+          <Rectangle.OpacityMask>
+            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_transform_rotate_clockwise}" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+        <i:Interaction.Triggers>
+          <i:EventTrigger EventName="Click">
+            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="ButtonRotateClockwise" />
+          </i:EventTrigger>
+        </i:Interaction.Triggers>
+      </Button>
+      <Button ToolTip="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.ButtonOpenInBrowser}">
+        <Rectangle Width="16" Height="16" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+          <Rectangle.OpacityMask>
+            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_browser}" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+        <i:Interaction.Triggers>
+          <i:EventTrigger EventName="Click">
+            <l:LivetCallMethodAction MethodTarget="{Binding MediaInfoViewModel}" MethodName="OpenInBrowser" />
+          </i:EventTrigger>
+        </i:Interaction.Triggers>
+      </Button>
+      <Button ToolTip="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.ButtonSave}">
+        <Rectangle Width="16" Height="16" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+          <Rectangle.OpacityMask>
+            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_save}" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+        <i:Interaction.Triggers>
+          <i:EventTrigger EventName="Click">
+            <l:LivetCallMethodAction MethodTarget="{Binding MediaInfoViewModel}" MethodName="Save" />
+          </i:EventTrigger>
+        </i:Interaction.Triggers>
+      </Button>
+    </metro:WindowCommands>
+  </metro:MetroWindow.RightWindowCommands>
+  <i:Interaction.Triggers>
+    <i:EventTrigger EventName="Closed">
+      <l:DataContextDisposeAction/>
+    </i:EventTrigger>
+    <l:InteractionMessageTrigger Messenger="{Binding MediaInfoViewModel.Messenger}" MessageKey="SaveDialogMessageKey">
+      <l:SaveFileDialogInteractionMessageAction>
+        <l:DirectInteractionMessage CallbackMethodTarget="{Binding MediaInfoViewModel}" CallbackMethodName="SaveFileDialogCallback">
+          <l:SavingFileSelectionMessage FileName="{Binding MediaInfoViewModel.FileName}" Filter="{Binding MediaInfoViewModel.SaveDialogFilter}" />
+        </l:DirectInteractionMessage>
+      </l:SaveFileDialogInteractionMessageAction>
+    </l:InteractionMessageTrigger>
+  </i:Interaction.Triggers>
+
+  <Grid MinWidth="300" MinHeight="200" MaxWidth="800" MaxHeight="600">
+    <u:WebImage SourceUri="{Binding MediaInfoViewModel.Uri}">
+      <u:WebImage.LayoutTransform>
+        <RotateTransform Angle="{Binding Angle}" />
+      </u:WebImage.LayoutTransform>
+    </u:WebImage>
+  </Grid>
+</metro:MetroWindow>

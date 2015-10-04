@@ -1,0 +1,203 @@
+﻿<UserControl x:Class="Twinkle.Views.UserControls.TimelineControl" x:Name="self"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:m="clr-namespace:Twinkle.Models"
+             xmlns:v="clr-namespace:Twinkle.Views"
+             xmlns:c="clr-namespace:Twinkle.Views.Converters"
+             xmlns:u="clr-namespace:Twinkle.Views.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="400">
+  <i:Interaction.Triggers>
+    <l:InteractionMessageTrigger Messenger="{Binding Messenger}" MessageKey="DetachMessageKey">
+      <l:TransitionInteractionMessageAction>
+        <l:DirectInteractionMessage>
+          <l:TransitionMessage WindowType="{x:Type v:TimelineWindow}" Mode="Normal" TransitionViewModel="{Binding}" />
+        </l:DirectInteractionMessage>
+      </l:TransitionInteractionMessageAction>
+    </l:InteractionMessageTrigger>
+  </i:Interaction.Triggers>
+  <Grid DataContext="{Binding ElementName=self, Path=Timeline}">
+    <Grid.Resources>
+      <c:InvertBoolConverter x:Key="InvertBoolConverter" />
+    </Grid.Resources>
+    <DockPanel>
+      <Border DockPanel.Dock="Top" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="0, 0, 0, 2" Margin="4, 0">
+        <DockPanel>
+          <Button DockPanel.Dock="Right" Background="Transparent">
+            <Button.Visibility>
+              <Binding Path="IsWindowed">
+                <Binding.Converter>
+                  <l:VisibilityAndBooleanConverter ConvertWhenFalse="Visible" ConvertWhenTrue="Collapsed" />
+                </Binding.Converter>
+              </Binding>
+            </Button.Visibility>
+            <Rectangle Width="12" Height="12" Fill="{DynamicResource AccentColorBrush}">
+              <Rectangle.OpacityMask>
+                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_window_maximize}" />
+              </Rectangle.OpacityMask>
+            </Rectangle>
+            <i:Interaction.Triggers>
+              <i:EventTrigger EventName="Click">
+                <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="Detach" />
+              </i:EventTrigger>
+            </i:Interaction.Triggers>
+          </Button>
+          <Button DockPanel.Dock="Right" Background="Transparent">
+            <Button.Visibility>
+              <Binding Path="IsWindowed">
+                <Binding.Converter>
+                  <l:VisibilityAndBooleanConverter ConvertWhenFalse="Collapsed" ConvertWhenTrue="Visible" />
+                </Binding.Converter>
+              </Binding>
+            </Button.Visibility>
+            <Rectangle Width="12" Height="12" Fill="{DynamicResource AccentColorBrush}">
+              <Rectangle.OpacityMask>
+                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_window_minimize}" />
+              </Rectangle.OpacityMask>
+            </Rectangle>
+            <i:Interaction.Triggers>
+              <i:EventTrigger EventName="Click">
+                <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="Attach" />
+              </i:EventTrigger>
+            </i:Interaction.Triggers>
+          </Button>
+          <Button DockPanel.Dock="Right" Background="Transparent">
+            <Button.Visibility>
+              <Binding Path="IsEditMode">
+                <Binding.Converter>
+                  <l:VisibilityAndBooleanConverter ConvertWhenTrue="Collapsed" ConvertWhenFalse="Visible" />
+                </Binding.Converter>
+              </Binding>
+            </Button.Visibility>
+            <Rectangle Width="12" Height="12" Fill="{DynamicResource AccentColorBrush}">
+              <Rectangle.OpacityMask>
+                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_cog}" />
+              </Rectangle.OpacityMask>
+            </Rectangle>
+            <i:Interaction.Triggers>
+              <i:EventTrigger EventName="Click">
+                <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="EnterEditMode" />
+              </i:EventTrigger>
+            </i:Interaction.Triggers>
+          </Button>
+          <TextBlock Text="{Binding Name}" Foreground="{DynamicResource AccentColorBrush}" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0, 4" />
+        </DockPanel>
+      </Border>
+      <Border Padding="4, 0">
+        <Grid>
+          <u:TweetList Tweets="{Binding Tweets}">
+            <u:TweetList.Visibility>
+              <Binding Path="IsEditMode">
+                <Binding.Converter>
+                  <l:VisibilityAndBooleanConverter ConvertWhenFalse="Visible" ConvertWhenTrue="Collapsed" />
+                </Binding.Converter>
+              </Binding>
+            </u:TweetList.Visibility>
+          </u:TweetList>
+          <Grid Margin="0, 4">
+            <Grid.Visibility>
+              <Binding Path="IsEditMode">
+                <Binding.Converter>
+                  <l:VisibilityAndBooleanConverter ConvertWhenFalse="Collapsed" ConvertWhenTrue="Visible" />
+                </Binding.Converter>
+              </Binding>
+            </Grid.Visibility>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto" />
+              <RowDefinition />
+              <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+              </Grid.ColumnDefinitions>
+              <TextBlock Text="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.LabelName}" VerticalAlignment="Center" Margin="0, 4, 4, 4" />
+              <TextBox Grid.Column="1" Text="{Binding NameInput, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" />
+            </Grid>
+            <Grid Grid.Row="1">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+              </Grid.RowDefinitions>
+              <Grid Margin="0, 4, 0, 0">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.LabelFilterScript}" Margin="0, 4" />
+                <u:DropDownButton Grid.Column="1" Padding="4" BorderThickness="0" ToolTip="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.ButtonTemplates}">
+                  <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="16" Fill="Black" VerticalAlignment="Center">
+                      <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_input_pen}" />
+                      </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <Rectangle Width="6" Height="6" Fill="Black" VerticalAlignment="Center" Margin="4, 0, 0, 0">
+                      <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_chevron_down}" />
+                      </Rectangle.OpacityMask>
+                    </Rectangle>
+                  </StackPanel>
+                  <u:DropDownButton.DropDownMenu>
+                    <ContextMenu ItemsSource="{Binding FilterScriptTemplateServiceViewModel.Templates}">
+                      <ContextMenu.ItemContainerStyle>
+                        <Style TargetType="MenuItem" BasedOn="{StaticResource MetroMenuItem}">
+                          <Setter Property="Header" Value="{Binding Name}" />
+                          <Setter Property="Command" Value="{Binding ApplyCommand}" />
+                        </Style>
+                      </ContextMenu.ItemContainerStyle>
+                    </ContextMenu>
+                  </u:DropDownButton.DropDownMenu>
+                </u:DropDownButton>
+              </Grid>
+              <TextBox Grid.Row="1" Text="{Binding ScriptInput, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True">
+                <TextBox.Background>
+                  <Binding Path="ScriptError">
+                    <Binding.Converter>
+                      <c:BoolBrushConverter BrushWhenFalse="White" BrushWhenTrue="LightPink" />
+                    </Binding.Converter>
+                  </Binding>
+                </TextBox.Background>
+              </TextBox>
+            </Grid>
+            <Grid Grid.Row="2">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+              </Grid.ColumnDefinitions>
+              <Button Content="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.ButtonDelete}" Foreground="White" Background="Red" MinWidth="80" Margin="0, 4, 4, 0">
+                <i:Interaction.Triggers>
+                  <i:EventTrigger EventName="Click">
+                    <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="DeleteFromTimelines" />
+                  </i:EventTrigger>
+                </i:Interaction.Triggers>
+              </Button>
+              <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.ButtonOk}" MinWidth="80" Margin="4, 4, 4, 0">
+                  <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                      <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="ExitEditModeWithSave" />
+                    </i:EventTrigger>
+                  </i:Interaction.Triggers>
+                </Button>
+                <Button Content="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.ButtonCancel}" MinWidth="80" Margin="0, 4, 0, 0">
+                  <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                      <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="ExitEditMode" />
+                    </i:EventTrigger>
+                  </i:Interaction.Triggers>
+                </Button>
+              </StackPanel>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Border>
+    </DockPanel>
+  </Grid>
+</UserControl>

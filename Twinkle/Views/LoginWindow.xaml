@@ -1,0 +1,84 @@
+﻿<metro:MetroWindow x:Class="Twinkle.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:m="clr-namespace:Twinkle.Models"
+        xmlns:v="clr-namespace:Twinkle.Views"
+        xmlns:vm="clr-namespace:Twinkle.ViewModels"
+        Title="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.WindowTitleLogin}"
+        SizeToContent="WidthAndHeight" MinWidth="500" UseLayoutRounding="True" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        GlowBrush="{DynamicResource AccentColorBrush}" TitleCaps="False">
+
+  <Window.DataContext>
+    <vm:LoginWindowViewModel />
+  </Window.DataContext>
+  
+  <Window.Resources>
+    <l:VisibilityAndBooleanConverter x:Key="visibilityConverter" ConvertWhenFalse="Collapsed" ConvertWhenTrue="Visible" />
+  </Window.Resources>
+
+  <i:Interaction.Triggers>
+    <i:EventTrigger EventName="Closed">
+      <l:DataContextDisposeAction />
+    </i:EventTrigger>
+    <l:InteractionMessageTrigger Messenger="{Binding Messenger}" MessageKey="OpenMessageWindowMessageKey">
+      <l:TransitionInteractionMessageAction WindowType="{x:Type v:MessageWindow}" Mode="Modal" />
+    </l:InteractionMessageTrigger>
+    <l:InteractionMessageTrigger Messenger="{Binding Messenger}" MessageKey="CloseWindowKey">
+      <l:WindowInteractionMessageAction>
+        <l:DirectInteractionMessage>
+          <l:WindowActionMessage Action="Close" />
+        </l:DirectInteractionMessage>
+      </l:WindowInteractionMessageAction>
+    </l:InteractionMessageTrigger>
+  </i:Interaction.Triggers>
+
+  <DockPanel>
+    <StatusBar DockPanel.Dock="Bottom" Background="{Binding ApplicationMessageService.LatestMessage.BackgroundBrush}" Foreground="{Binding ApplicationMessageService.LatestMessage.ForegroundBrush}">
+      <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseDown">
+          <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="OpenMessageWindow" />
+        </i:EventTrigger>
+      </i:Interaction.Triggers>
+      <TextBlock Text="{Binding ApplicationMessageService.LatestMessage.TypeString}" Foreground="{Binding ApplicationMessageService.LatestMessage.ForegroundBrush}" FontWeight="Bold" />
+      <TextBlock Text="{Binding ApplicationMessageService.LatestMessage.Title}" Foreground="{Binding ApplicationMessageService.LatestMessage.ForegroundBrush}" TextTrimming="CharacterEllipsis" />
+    </StatusBar>
+    <StackPanel Orientation="Vertical">
+      <GroupBox Header="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.LoginStep1}" IsEnabled="{Binding IsEnabledStep1}">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+          </Grid.ColumnDefinitions>
+          <CheckBox Grid.Row="0" Grid.ColumnSpan="2" Content="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.LoginUseCustomKey}" Margin="4" IsChecked="{Binding UseCustomKeys}" />
+          <TextBlock Grid.Row="1" Text="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.LoginConsumerKey}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4" Visibility="{Binding UseCustomKeys, Converter={StaticResource visibilityConverter}}" />
+          <TextBox Grid.Row="1" Grid.Column="1" Margin="4" MinWidth="300" Text="{Binding ConsumerKey, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding UseCustomKeys, Converter={StaticResource visibilityConverter}}" />
+          <TextBlock Grid.Row="2" Text="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.LoginConsumerSecret}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="4" Visibility="{Binding UseCustomKeys, Converter={StaticResource visibilityConverter}}" />
+          <TextBox Grid.Row="2" Grid.Column="1"  Margin="4" MinWidth="300" Text="{Binding ConsumerSecret, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding UseCustomKeys, Converter={StaticResource visibilityConverter}}" />
+          <Button Grid.Row="3" Grid.ColumnSpan="2" Content="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.LoginStartAuthentication}" Margin="4" Command="{Binding StartAuthCommand}" />
+        </Grid>
+      </GroupBox>
+      <GroupBox Header="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.LoginStep2}" IsEnabled="{Binding IsEnabledStep2}">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+          </Grid.ColumnDefinitions>
+          <TextBlock Grid.Column="0" Text="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.LoginPinCode}" VerticalAlignment="Center" Margin="4" />
+          <TextBox Grid.Column="1" Margin="4" Text="{Binding PinCode, UpdateSourceTrigger=PropertyChanged}" />
+          <Button Grid.Column="2" Content="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.LoginConfirm}" Margin="4" MinWidth="100" Command="{Binding ConfirmCommand}" />
+        </Grid>
+      </GroupBox>
+    </StackPanel>
+  </DockPanel>
+</metro:MetroWindow>

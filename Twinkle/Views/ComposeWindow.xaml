@@ -1,0 +1,245 @@
+﻿<metro:MetroWindow x:Class="Twinkle.Views.ComposeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:m="clr-namespace:Twinkle.Models"
+        xmlns:v="clr-namespace:Twinkle.Views"
+        xmlns:c="clr-namespace:Twinkle.Views.Converters"
+        xmlns:h="clr-namespace:Twinkle.Views.Helpers"
+        xmlns:u="clr-namespace:Twinkle.Views.UserControls"
+        xmlns:vm="clr-namespace:Twinkle.ViewModels"
+        Title="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.WindowTitleNewTweet}"
+        Height="200" Width="400" UseLayoutRounding="True" ResizeMode="CanResize" ShowInTaskbar="False"
+        GlowBrush="{DynamicResource AccentColorBrush}" TitleCaps="False">
+
+  <Window.DataContext>
+    <vm:ComposeWindowViewModel />
+  </Window.DataContext>
+  
+  <Window.InputBindings>
+    <KeyBinding Gesture="Ctrl+Enter" Command="{Binding TweetCommand}" />
+  </Window.InputBindings>
+
+  <i:Interaction.Triggers>
+    <i:EventTrigger EventName="Closed">
+      <l:DataContextDisposeAction />
+    </i:EventTrigger>
+    <l:InteractionMessageTrigger Messenger="{Binding Messenger}" MessageKey="CloseWindowKey">
+      <l:WindowInteractionMessageAction>
+        <l:DirectInteractionMessage>
+          <l:WindowActionMessage Action="Close" />
+        </l:DirectInteractionMessage>
+      </l:WindowInteractionMessageAction>
+    </l:InteractionMessageTrigger>
+    <l:InteractionMessageTrigger Messenger="{Binding Messenger}" MessageKey="OpenFileDialogMessageKey">
+      <l:OpenFileDialogInteractionMessageAction>
+        <l:DirectInteractionMessage CallbackMethodTarget="{Binding}" CallbackMethodName="OpenFileDialogCallback">
+          <l:OpeningFileSelectionMessage MultiSelect="True" Filter="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.FileDialogFilterImage}" />
+        </l:DirectInteractionMessage>
+      </l:OpenFileDialogInteractionMessageAction>
+    </l:InteractionMessageTrigger>
+  </i:Interaction.Triggers>
+
+  <Grid FocusManager.FocusedElement="{Binding ElementName=Text}">
+    <Grid.RowDefinitions>
+      <RowDefinition />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <Border Grid.RowSpan="3" BorderBrush="LightGray" BorderThickness="0, 0, 0, 1">
+      <ItemsControl ItemsSource="{Binding SettingsViewModel.Accounts}" Margin="4" IsEnabled="{Binding CanEdit}">
+        <ItemsControl.Template>
+          <ControlTemplate TargetType="ItemsControl">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+              <ItemsPresenter />
+            </ScrollViewer>
+          </ControlTemplate>
+        </ItemsControl.Template>
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <StackPanel Orientation="Vertical" />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <CheckBox IsChecked="{Binding IsActive}">
+              <Image Width="32" Height="32" Margin="2">
+                <Image.Source>
+                  <BitmapImage UriSource="{Binding UserProfileImageUrl, Mode=OneWay}" CacheOption="OnLoad" />
+                </Image.Source>
+              </Image>
+            </CheckBox>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </Border>
+    <TextBox Grid.Column="1" Name="Text" Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"
+             TextWrapping="Wrap" IsEnabled="{Binding CanEdit}" h:TextBoxHelper.SelectionStart="{Binding SelectionStart}" />
+    <Border Grid.Row="1" Grid.Column="1" BorderBrush="LightGray" BorderThickness="1, 0, 0, 1">
+      <Border.Visibility>
+        <Binding Path="IsMediaAttached">
+          <Binding.Converter>
+            <l:VisibilityAndBooleanConverter ConvertWhenTrue="Visible" ConvertWhenFalse="Collapsed" />
+          </Binding.Converter>
+        </Binding>
+      </Border.Visibility>
+      <ItemsControl Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Media}">
+        <ItemsControl.Visibility>
+          <Binding Path="MediaExists">
+            <Binding.Converter>
+              <l:VisibilityAndBooleanConverter ConvertWhenTrue="Visible" ConvertWhenFalse="Collapsed" />
+            </Binding.Converter>
+          </Binding>
+        </ItemsControl.Visibility>
+        <ItemsControl.Template>
+          <ControlTemplate TargetType="ItemsControl">
+            <ItemsPresenter />
+          </ControlTemplate>
+        </ItemsControl.Template>
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <WrapPanel Orientation="Horizontal" />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Border Margin="4" BorderBrush="LightGray" BorderThickness="1">
+              <Grid Width="48" Height="48">
+                <Rectangle Fill="White" />
+                <Image Source="{Binding ThumbnailImage}" Stretch="UniformToFill" />
+                <Button Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right" BorderThickness="0" Background="#80808080">
+                  <Rectangle Width="10" Height="10" Fill="LightGray" VerticalAlignment="Center" Margin="4">
+                    <Rectangle.OpacityMask>
+                      <VisualBrush Visual="{StaticResource appbar_close}" Stretch="Uniform" />
+                    </Rectangle.OpacityMask>
+                  </Rectangle>
+                  <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                      <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="RemoveFromParent" />
+                    </i:EventTrigger>
+                  </i:Interaction.Triggers>
+                </Button>
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </Border>
+    <Border Grid.Row="2" Grid.Column="1" BorderBrush="LightGray" BorderThickness="1, 0, 0, 1" Background="{DynamicResource AccentColorBrush}">
+      <Border.Visibility>
+        <Binding Path="InReplyToStatus">
+          <Binding.Converter>
+            <l:VisibilityAndBooleanConverter ConvertWhenTrue="Visible" ConvertWhenFalse="Collapsed" />
+          </Binding.Converter>
+        </Binding>
+      </Border.Visibility>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition />
+          <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Rectangle Width="12" Height="12" Fill="White" VerticalAlignment="Center" Margin="4">
+          <Rectangle.OpacityMask>
+            <VisualBrush Visual="{StaticResource appbar_undo_point}" Stretch="Uniform" />
+          </Rectangle.OpacityMask>
+        </Rectangle>
+        <TextBlock Grid.Column="1" Foreground="White" Margin="4, 0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis">
+          <TextBlock.Text>
+            <Binding Path="InReplyToStatusText">
+              <Binding.Converter>
+                <c:RemoveNewlineConverter />
+              </Binding.Converter>
+            </Binding>
+          </TextBlock.Text>
+        </TextBlock>
+        <Button Grid.Column="2" Padding="0" VerticalAlignment="Center">
+          <Rectangle Width="10" Height="10" Fill="Black" VerticalAlignment="Center" Margin="4">
+            <Rectangle.OpacityMask>
+              <VisualBrush Visual="{StaticResource appbar_close}" Stretch="Uniform" />
+            </Rectangle.OpacityMask>
+          </Rectangle>
+          <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Click">
+              <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="DeleteInReplyToStatus" />
+            </i:EventTrigger>
+          </i:Interaction.Triggers>
+        </Button>
+      </Grid>
+    </Border>
+    <Grid Grid.Row="3" Grid.ColumnSpan="2">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+      <StackPanel Orientation="Horizontal">
+        <u:DropDownButton Padding="4" BorderThickness="0">
+          <StackPanel Orientation="Horizontal">
+            <Rectangle Width="16" Height="16" Fill="Black" VerticalAlignment="Center">
+              <Rectangle.OpacityMask>
+                <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_image}" />
+              </Rectangle.OpacityMask>
+            </Rectangle>
+            <Rectangle Width="6" Height="6" Fill="Black" VerticalAlignment="Center" Margin="4, 0, 0, 0">
+              <Rectangle.OpacityMask>
+                <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_chevron_down}" />
+              </Rectangle.OpacityMask>
+            </Rectangle>
+          </StackPanel>
+          <u:DropDownButton.DropDownMenu>
+            <ContextMenu>
+              <MenuItem Header="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.MenuImageFile}" IsEnabled="{Binding CanMediaAttach}">
+                <i:Interaction.Triggers>
+                  <i:EventTrigger EventName="Click">
+                    <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="OpenFileDialog" />
+                  </i:EventTrigger>
+                </i:Interaction.Triggers>
+              </MenuItem>
+              <MenuItem Header="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.MenuImageClipboard}" IsEnabled="{Binding CanMediaAttachFromClipboard}">
+                <i:Interaction.Triggers>
+                  <i:EventTrigger EventName="Click">
+                    <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="AttachMediaFromClipboard" />
+                  </i:EventTrigger>
+                </i:Interaction.Triggers>
+              </MenuItem>
+              <Separator />
+              <MenuItem Header="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.MenuImageLaunchSnippingTool}">
+                <i:Interaction.Triggers>
+                  <i:EventTrigger EventName="Click">
+                    <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="LaunchSnippingTool" />
+                  </i:EventTrigger>
+                </i:Interaction.Triggers>
+              </MenuItem>
+            </ContextMenu>
+          </u:DropDownButton.DropDownMenu>
+          <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Click">
+              <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="RaiseCanMediaAttachFromClipboardPropertyChanged" />
+            </i:EventTrigger>
+          </i:Interaction.Triggers>
+        </u:DropDownButton>
+      </StackPanel>
+      <TextBlock Grid.Column="1" Margin="4" Text="{Binding CharCountLeft}" Opacity="0.5" VerticalAlignment="Center" />
+      <metro:ProgressRing Grid.Column="2" IsActive="True" Width="Auto" Height="Auto" Margin="4">
+        <metro:ProgressRing.Visibility>
+          <Binding Path="CanEdit">
+            <Binding.Converter>
+              <l:VisibilityAndBooleanConverter ConvertWhenFalse="Visible" ConvertWhenTrue="Collapsed" />
+            </Binding.Converter>
+          </Binding>
+        </metro:ProgressRing.Visibility>
+      </metro:ProgressRing>
+      <Button Grid.Column="3" MinWidth="100" Content="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.ButtonTweet}" IsEnabled="{Binding CanEdit}" Command="{Binding TweetCommand}" ToolTipService.ToolTip="Ctrl+Enter" />
+    </Grid>
+  </Grid>
+</metro:MetroWindow>
