@@ -109,7 +109,11 @@ namespace Twinkle.ViewModels
         {
             var screenNames = new[] { inReplyTo.OriginalStatus.User.ScreenName }.AsEnumerable();
             if (inReplyTo.OriginalStatus.Entities.UserMentions != null)
-                screenNames = screenNames.Concat(inReplyTo.OriginalStatus.Entities.UserMentions.Select(e => e.ScreenName)).Distinct().Where(s => s != inReplyTo.Account.UserInfo.ScreenName);
+            {
+                screenNames = screenNames.Concat(inReplyTo.OriginalStatus.Entities.UserMentions.Select(e => e.ScreenName)).Distinct();
+                if (inReplyTo.Status.User.ScreenName != inReplyTo.Account.UserInfo.ScreenName)
+                    screenNames = screenNames.Where(s => s != inReplyTo.Account.UserInfo.ScreenName);
+            }
             Text = screenNames.Select(s => "@" + s + " ").Aggregate((l, r) => l + r);
             SelectionStart = Text.Length;
             _inReplyToStatusId = inReplyTo.OriginalStatus.Id;
