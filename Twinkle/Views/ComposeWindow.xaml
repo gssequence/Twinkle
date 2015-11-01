@@ -12,7 +12,7 @@
         xmlns:u="clr-namespace:Twinkle.Views.UserControls"
         xmlns:vm="clr-namespace:Twinkle.ViewModels"
         Title="{Binding Source={x:Static m:GlobalizationService.Instance}, Path=Resources.WindowTitleNewTweet}"
-        Height="200" Width="400" UseLayoutRounding="True" ResizeMode="CanResize" ShowInTaskbar="False"
+        Height="200" Width="400" UseLayoutRounding="True" ResizeMode="CanResize" ShowInTaskbar="False" WindowStartupLocation="CenterOwner"
         GlowBrush="{DynamicResource AccentColorBrush}" TitleCaps="False">
 
   <Window.DataContext>
