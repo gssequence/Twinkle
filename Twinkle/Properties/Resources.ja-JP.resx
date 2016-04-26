@@ -300,6 +300,9 @@
   <data name="MessagePressStartAuthentication" xml:space="preserve">
     <value>"認証開始" を押してください。</value>
   </data>
+  <data name="MessageRetweeted" xml:space="preserve">
+    <value>@{0} があなたのツイートをリツイートしました。</value>
+  </data>
   <data name="MessageSendingTweet" xml:space="preserve">
     <value>ツイートを送信中...</value>
   </data>

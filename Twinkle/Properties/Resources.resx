@@ -300,6 +300,9 @@
   <data name="MessagePressStartAuthentication" xml:space="preserve">
     <value>Please press "Start Authentication."</value>
   </data>
+  <data name="MessageRetweeted" xml:space="preserve">
+    <value>@{0} retweeted your tweet.</value>
+  </data>
   <data name="MessageSendingTweet" xml:space="preserve">
     <value>Sending tweet...</value>
   </data>

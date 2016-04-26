@@ -34,6 +34,8 @@ namespace Twinkle.ViewModels
                         return "FAVORITED";
                     case MessageType.Unfavorited:
                         return "UNFAVORITED";
+                    case MessageType.Retweeted:
+                        return "RETWEETED";
                     default:
                         return "";
                 }
@@ -58,6 +60,8 @@ namespace Twinkle.ViewModels
                         return Brushes.Orange;
                     case MessageType.Unfavorited:
                         return Brushes.Black;
+                    case MessageType.Retweeted:
+                        return Brushes.LimeGreen;
                     default:
                         return Brushes.Black;
                 }
@@ -94,7 +98,8 @@ namespace Twinkle.ViewModels
             Error,
             Deleted,
             Favorited,
-            Unfavorited
+            Unfavorited,
+            Retweeted
         }
     }
 }

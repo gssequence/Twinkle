@@ -75,7 +75,8 @@ namespace Twinkle.Models
             Error,
             Deleted,
             Favorited,
-            Unfavorited
+            Unfavorited,
+            Retweeted
         }
     }
 }

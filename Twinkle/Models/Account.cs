@@ -145,7 +145,11 @@ namespace Twinkle.Models
                 {
                     case MessageType.Create:
                         {
-                            TweetDataSource.Instance.Add(new Tweet(((StatusMessage)msg).Status, this));
+                            var sm = (StatusMessage)msg;
+                            if (sm.Status.RetweetedStatus?.User.Id == UserInfo.Id)
+                                ApplicationMessageService.Instance.Messages.Add(new ApplicationMessage(ApplicationMessage.MessageType.Retweeted, "MessageRetweeted", "Format", new[] { sm.Status.User.ScreenName }, new[] { sm.Status.RetweetedStatus.Text }));
+                            else
+                                TweetDataSource.Instance.Add(new Tweet(sm.Status, this));
                             break;
                         }
                     case MessageType.DeleteStatus:
