@@ -20,6 +20,8 @@ namespace Twinkle.Models
 
         private static Settings initialize()
         {
+            Environment.CurrentDirectory = Constants.ApplicationDirectory;
+
             if (File.Exists(Constants.SettingsPath))
                 return load();
             else
