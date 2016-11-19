@@ -176,7 +176,7 @@ namespace Twinkle.Models
             var text = formattedString();
             var ob = Observable.Using(() => new StreamWriter(path, false, new UTF8Encoding(false)),
                 sw => sw.WriteAsync(text).ToObservable());
-            ob.Subscribe(u => ApplicationMessageService.Instance.Messages.Add(new ApplicationMessage(ApplicationMessage.MessageType.Info, "MessageTweetSaved", "Format", null, new[] { OriginalStatus.FullText })),
+            ob.Subscribe(u => ApplicationMessageService.Instance.Messages.Add(new ApplicationMessage(ApplicationMessage.MessageType.Info, "MessageTweetSaved", "Format", null, new[] { OriginalStatus.FullText ?? OriginalStatus.Text })),
                 ex => ApplicationMessageService.Instance.Messages.Add(ApplicationMessage.CreateExceptionMessage(ex)));
         }
 
@@ -188,7 +188,7 @@ namespace Twinkle.Models
 
             var text = OriginalStatus.User.Name + " @" + OriginalStatus.User.ScreenName + " " + OriginalStatus.User.Id.ToString() + Environment.NewLine;
             text += Environment.NewLine;
-            text += OriginalStatus.FullText + Environment.NewLine;
+            text += (OriginalStatus.FullText ?? OriginalStatus.Text) + Environment.NewLine;
             text += Environment.NewLine;
             if (entities.Count() > 0)
             {

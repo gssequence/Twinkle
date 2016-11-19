@@ -163,11 +163,11 @@ namespace Twinkle.Models
                             {
                                 case EventCode.Favorite:
                                     if (UserInfo == null || eventmsg.Source.ScreenName != UserInfo.ScreenName)
-                                        ApplicationMessageService.Instance.Messages.Add(new ApplicationMessage(ApplicationMessage.MessageType.Favorited, "MessageFavorited", "Format", new[] { eventmsg.Source.ScreenName }, new[] { eventmsg.TargetStatus.FullText }));
+                                        ApplicationMessageService.Instance.Messages.Add(new ApplicationMessage(ApplicationMessage.MessageType.Favorited, "MessageFavorited", "Format", new[] { eventmsg.Source.ScreenName }, new[] { eventmsg.TargetStatus.FullText ?? eventmsg.TargetStatus.Text }));
                                     break;
                                 case EventCode.Unfavorite:
                                     if (UserInfo == null || eventmsg.Source.ScreenName != UserInfo.ScreenName)
-                                        ApplicationMessageService.Instance.Messages.Add(new ApplicationMessage(ApplicationMessage.MessageType.Unfavorited, "MessageUnfavorited", "Format", new[] { eventmsg.Source.ScreenName }, new[] { eventmsg.TargetStatus.FullText }));
+                                        ApplicationMessageService.Instance.Messages.Add(new ApplicationMessage(ApplicationMessage.MessageType.Unfavorited, "MessageUnfavorited", "Format", new[] { eventmsg.Source.ScreenName }, new[] { eventmsg.TargetStatus.FullText ?? eventmsg.TargetStatus.Text }));
                                     break;
                             }
                             TweetDataSource.Instance.Add(new Tweet(eventmsg.TargetStatus, this));

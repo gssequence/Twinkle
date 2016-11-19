@@ -113,7 +113,7 @@ namespace Twinkle.ViewModels
             Text = screenNames.Select(s => "@" + s + " ").Aggregate((l, r) => l + r);
             SelectionStart = Text.Length;
             _inReplyToStatusId = inReplyTo.OriginalStatus.Id;
-            InReplyToStatusText = "@" + inReplyTo.OriginalStatus.User.ScreenName + ": " + inReplyTo.OriginalStatus.FullText;
+            InReplyToStatusText = "@" + inReplyTo.OriginalStatus.User.ScreenName + ": " + (inReplyTo.OriginalStatus.FullText ?? inReplyTo.OriginalStatus.Text);
             InReplyToStatus = true;
         }
 
