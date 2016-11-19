@@ -1,17 +1,13 @@
 ﻿using CoreTweet;
 using CoreTweet.Core;
 using CoreTweet.Streaming;
-using CoreTweet.Streaming.Reactive;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using Twinkle.Mvvm;
 
 namespace Twinkle.Models
