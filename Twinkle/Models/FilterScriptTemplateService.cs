@@ -18,7 +18,7 @@ namespace Twinkle.Models
             List<FilterScriptTemplate> templates = new List<FilterScriptTemplate>();
             templates.Add(new FilterScriptTemplate("All Received Tweets", "true"));
             templates.Add(new FilterScriptTemplate("User", "tweet.Status.User.ScreenName == \"username\""));
-            templates.Add(new FilterScriptTemplate("Mentions", "tweet.OriginalStatus.Text.Contains(\"@username\")"));
+            templates.Add(new FilterScriptTemplate("Mentions", "tweet.OriginalStatus.FullText.Contains(\"@username\")"));
             templates.Add(new FilterScriptTemplate("Favorites", "tweet.IsFavorited"));
             templates.Add(new FilterScriptTemplate("Deleted Tweets", "tweet.IsDeleted"));
             Templates = templates;

@@ -26,7 +26,7 @@ namespace Twinkle.ViewModels
 
         public bool IsProtectedUser { get { return Model.OriginalStatus.User.IsProtected; } }
 
-        public string Text { get { return Model.OriginalStatus.Text; } }
+        public string Text { get { return Model.OriginalStatus.FullText; } }
 
         public string Time
         {

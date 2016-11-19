@@ -163,11 +163,11 @@ namespace Twinkle.Models
                             {
                                 case EventCode.Favorite:
                                     if (UserInfo == null || eventmsg.Source.ScreenName != UserInfo.ScreenName)
-                                        ApplicationMessageService.Instance.Messages.Add(new ApplicationMessage(ApplicationMessage.MessageType.Favorited, "MessageFavorited", "Format", new[] { eventmsg.Source.ScreenName }, new[] { eventmsg.TargetStatus.Text }));
+                                        ApplicationMessageService.Instance.Messages.Add(new ApplicationMessage(ApplicationMessage.MessageType.Favorited, "MessageFavorited", "Format", new[] { eventmsg.Source.ScreenName }, new[] { eventmsg.TargetStatus.FullText }));
                                     break;
                                 case EventCode.Unfavorite:
                                     if (UserInfo == null || eventmsg.Source.ScreenName != UserInfo.ScreenName)
-                                        ApplicationMessageService.Instance.Messages.Add(new ApplicationMessage(ApplicationMessage.MessageType.Unfavorited, "MessageUnfavorited", "Format", new[] { eventmsg.Source.ScreenName }, new[] { eventmsg.TargetStatus.Text }));
+                                        ApplicationMessageService.Instance.Messages.Add(new ApplicationMessage(ApplicationMessage.MessageType.Unfavorited, "MessageUnfavorited", "Format", new[] { eventmsg.Source.ScreenName }, new[] { eventmsg.TargetStatus.FullText }));
                                     break;
                             }
                             TweetDataSource.Instance.Add(new Tweet(eventmsg.TargetStatus, this));
@@ -197,28 +197,28 @@ namespace Twinkle.Models
         public void GetLatestTweets()
         {
             int c = 200;
-            addFromObservable(_tokens.Statuses.HomeTimelineAsync(count: c, include_entities: true).ToObservable(),
+            addFromObservable(_tokens.Statuses.HomeTimelineAsync(count: c, include_entities: true, tweet_mode: TweetMode.extended).ToObservable(),
                 () => ApplicationMessageService.Instance.Messages.Add(new ApplicationMessage(ApplicationMessage.MessageType.Info, "MessageCompleteHomeReceiving", "", new object[] { c })));
         }
 
         public void GetMyTweets()
         {
             int c = 50;
-            addFromObservable(_tokens.Statuses.UserTimelineAsync(count: c, include_rts: true).ToObservable(),
+            addFromObservable(_tokens.Statuses.UserTimelineAsync(count: c, include_rts: true, tweet_mode: TweetMode.extended).ToObservable(),
                 () => ApplicationMessageService.Instance.Messages.Add(new ApplicationMessage(ApplicationMessage.MessageType.Info, "MessageCompleteMyTweetReceiving", "", new object[] { c })));
         }
 
         public void GetMentions()
         {
             int c = 50;
-            addFromObservable(_tokens.Statuses.MentionsTimelineAsync(count: c, include_entities: true).ToObservable(),
+            addFromObservable(_tokens.Statuses.MentionsTimelineAsync(count: c, include_entities: true, tweet_mode: TweetMode.extended).ToObservable(),
                 () => ApplicationMessageService.Instance.Messages.Add(new ApplicationMessage(ApplicationMessage.MessageType.Info, "MessageCompleteMentionsReceiving", "", new object[] { c })));
         }
 
         public void GetFavorites()
         {
             int c = 200;
-            addFromObservable(_tokens.Favorites.ListAsync(count: c, include_entities: true).ToObservable(),
+            addFromObservable(_tokens.Favorites.ListAsync(count: c, include_entities: true, tweet_mode: TweetMode.extended).ToObservable(),
                 () => ApplicationMessageService.Instance.Messages.Add(new ApplicationMessage(ApplicationMessage.MessageType.Info, "MessageCompleteFavoriteReceiving", "", new object[] { c })));
         }
 

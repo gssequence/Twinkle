@@ -65,7 +65,7 @@ namespace Twinkle.Models
 
         public static ApplicationMessage CreateDeleteMessage(Tweet tweet)
         {
-            return new ApplicationMessage(MessageType.Deleted, "MessageDeletedTweet", "Format", new[] { tweet.Status.User.ScreenName }, new[] { tweet.Status.Text });
+            return new ApplicationMessage(MessageType.Deleted, "MessageDeletedTweet", "Format", new[] { tweet.Status.User.ScreenName }, new[] { tweet.Status.FullText });
         }
 
         public enum MessageType
